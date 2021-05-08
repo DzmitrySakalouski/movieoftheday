@@ -1,0 +1,34 @@
+PODS:
+  - RxCocoa (6.1.0):
+    - RxRelay (= 6.1.0)
+    - RxSwift (= 6.1.0)
+  - RxRelay (6.1.0):
+    - RxSwift (= 6.1.0)
+  - RxSwift (6.1.0)
+  - Swinject (2.7.1)
+  - YouTubePlayer (0.7.2)
+
+DEPENDENCIES:
+  - RxCocoa (= 6.1.0)
+  - RxSwift (= 6.1.0)
+  - Swinject
+  - YouTubePlayer
+
+SPEC REPOS:
+  trunk:
+    - RxCocoa
+    - RxRelay
+    - RxSwift
+    - Swinject
+    - YouTubePlayer
+
+SPEC CHECKSUMS:
+  RxCocoa: 5c51f02d562cbd94629f6c26cf0c80fe4ab8d343
+  RxRelay: 483e1a19fad961b41f0b0c0bee506f46c1ae14fe
+  RxSwift: a834e5c538e89eca0cae86f403f4fbf0336786ce
+  Swinject: ddf78b8486dd9b71a667b852cad919ab4484478e
+  YouTubePlayer: 2b5f2830d8f9b2cde942083211291e382c9e6bd5
+
+PODFILE CHECKSUM: 181a66cd74330814564a501ed61281b0b46382ee
+
+COCOAPODS: 1.10.1
