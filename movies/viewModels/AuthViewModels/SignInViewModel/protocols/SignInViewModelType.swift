@@ -14,6 +14,8 @@ protocol SignInViewModelType {
     var didPressSignIn: (() -> ())! { get set }
     var didPressSignUp: (() -> ())! { get set }
     var errorMessage: BehaviorRelay<String?> { get }
+    var userService: UserServiceType! { get }
     
     func validateCredetials() -> Bool
+    func logIn() -> ()
 }

@@ -53,6 +53,13 @@
 		411E7B02263D8E2800982D1B /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411E7B01263D8E2800982D1B /* AuthCoordinator.swift */; };
 		413F3D692619EB0E00A9D09C /* DetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413F3D682619EB0D00A9D09C /* DetailsViewModel.swift */; };
 		413F3D6D2619EB2500A9D09C /* DetailsViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413F3D6C2619EB2500A9D09C /* DetailsViewModelType.swift */; };
+		4190BB8926480BE700084A26 /* AuthServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4190BB8826480BE700084A26 /* AuthServiceType.swift */; };
+		4190BBA02648156100084A26 /* LaunchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4190BB9F2648156100084A26 /* LaunchService.swift */; };
+		4190BBA4264816FC00084A26 /* UserServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4190BBA3264816FC00084A26 /* UserServiceType.swift */; };
+		41B689ED26472CF0004BC184 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B689EC26472CF0004BC184 /* AuthService.swift */; };
+		41B689F126472D5C004BC184 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 41B689F026472D5C004BC184 /* GoogleService-Info.plist */; };
+		41B68A18264731DA004BC184 /* Launcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B68A17264731DA004BC184 /* Launcher.swift */; };
+		41B68A1C2647367A004BC184 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B68A1B2647367A004BC184 /* UserService.swift */; };
 		41BF5CFC2646B58400A34F6A /* EmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BF5CFB2646B58400A34F6A /* EmailViewModel.swift */; };
 		41BF5D002646B72900A34F6A /* PasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BF5CFF2646B72900A34F6A /* PasswordViewModel.swift */; };
 		41BF5D042646B86600A34F6A /* PasswordViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BF5D032646B86600A34F6A /* PasswordViewModelType.swift */; };
@@ -119,6 +126,13 @@
 		411E7B01263D8E2800982D1B /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		413F3D682619EB0D00A9D09C /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
 		413F3D6C2619EB2500A9D09C /* DetailsViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModelType.swift; sourceTree = "<group>"; };
+		4190BB8826480BE700084A26 /* AuthServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceType.swift; sourceTree = "<group>"; };
+		4190BB9F2648156100084A26 /* LaunchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchService.swift; sourceTree = "<group>"; };
+		4190BBA3264816FC00084A26 /* UserServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServiceType.swift; sourceTree = "<group>"; };
+		41B689EC26472CF0004BC184 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		41B689F026472D5C004BC184 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		41B68A17264731DA004BC184 /* Launcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Launcher.swift; sourceTree = "<group>"; };
+		41B68A1B2647367A004BC184 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		41BF5CFB2646B58400A34F6A /* EmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewModel.swift; sourceTree = "<group>"; };
 		41BF5CFF2646B72900A34F6A /* PasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewModel.swift; sourceTree = "<group>"; };
 		41BF5D032646B86600A34F6A /* PasswordViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewModelType.swift; sourceTree = "<group>"; };
@@ -194,6 +208,7 @@
 				4109E8FD26165E1D0036377D /* coordinators */,
 				4109E8D4261650550036377D /* AppDelegate.swift */,
 				4109E8D6261650550036377D /* SceneDelegate.swift */,
+				41B689F026472D5C004BC184 /* GoogleService-Info.plist */,
 				4109E8E0261650590036377D /* Assets.xcassets */,
 				4109E8E2261650590036377D /* LaunchScreen.storyboard */,
 				4109E8E5261650590036377D /* Info.plist */,
@@ -216,6 +231,8 @@
 		4109E90526165E910036377D /* protocols */ = {
 			isa = PBXGroup;
 			children = (
+				4190BBA2264816ED00084A26 /* UserService */,
+				4190BB8726480BD300084A26 /* Auth */,
 				41E0F22926468B6A006F3DE0 /* Validation */,
 				4109E92B261660290036377D /* ControllerFactory */,
 				4109E92326165FDC0036377D /* Network */,
@@ -282,6 +299,7 @@
 			isa = PBXGroup;
 			children = (
 				4109E931261660920036377D /* HTTPMethod.swift */,
+				41B68A17264731DA004BC184 /* Launcher.swift */,
 			);
 			path = enum;
 			sourceTree = "<group>";
@@ -293,6 +311,8 @@
 				4109E93C261661160036377D /* NetworkService.swift */,
 				4109E9442616625D0036377D /* Navigator.swift */,
 				41BF5D122646BA7700A34F6A /* DIService.swift */,
+				41B689EC26472CF0004BC184 /* AuthService.swift */,
+				4190BB9F2648156100084A26 /* LaunchService.swift */,
 			);
 			path = commonServices;
 			sourceTree = "<group>";
@@ -365,6 +385,7 @@
 		4109E96F2617355F0036377D /* services */ = {
 			isa = PBXGroup;
 			children = (
+				41B68A1A2647366C004BC184 /* UserService */,
 				4109E985261743110036377D /* MovieService */,
 			);
 			path = services;
@@ -522,6 +543,30 @@
 			path = protocols;
 			sourceTree = "<group>";
 		};
+		4190BB8726480BD300084A26 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				4190BB8826480BE700084A26 /* AuthServiceType.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		4190BBA2264816ED00084A26 /* UserService */ = {
+			isa = PBXGroup;
+			children = (
+				4190BBA3264816FC00084A26 /* UserServiceType.swift */,
+			);
+			path = UserService;
+			sourceTree = "<group>";
+		};
+		41B68A1A2647366C004BC184 /* UserService */ = {
+			isa = PBXGroup;
+			children = (
+				41B68A1B2647367A004BC184 /* UserService.swift */,
+			);
+			path = UserService;
+			sourceTree = "<group>";
+		};
 		41BF5CF92646B56200A34F6A /* AuthViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -671,6 +716,7 @@
 			files = (
 				41F7F73C263FF268003325BC /* Auth.storyboard in Resources */,
 				4109E8E4261650590036377D /* LaunchScreen.storyboard in Resources */,
+				41B689F126472D5C004BC184 /* GoogleService-Info.plist in Resources */,
 				4109E8E1261650590036377D /* Assets.xcassets in Resources */,
 				4109E96D26166E810036377D /* BebasNeue-Regular.ttf in Resources */,
 			);
@@ -727,6 +773,7 @@
 			files = (
 				41E0F22B26468B9E006F3DE0 /* ValidationType.swift in Sources */,
 				41E0F2222646887E006F3DE0 /* SignUpViewController.swift in Sources */,
+				4190BBA02648156100084A26 /* LaunchService.swift in Sources */,
 				4109E92926165FFA0036377D /* EndpointType.swift in Sources */,
 				41BF5D082646B8A500A34F6A /* EmailViewModelType.swift in Sources */,
 				4109E9452616625D0036377D /* Navigator.swift in Sources */,
@@ -735,7 +782,10 @@
 				4109E91726165F560036377D /* NavigatorType.swift in Sources */,
 				41F799AA26448C1900BA4444 /* RoundedButton.swift in Sources */,
 				4109E9A0261773DE0036377D /* DetailsViewController.swift in Sources */,
+				4190BB8926480BE700084A26 /* AuthServiceType.swift in Sources */,
 				4109E98B261745690036377D /* MovieServiceType.swift in Sources */,
+				4190BBA4264816FC00084A26 /* UserServiceType.swift in Sources */,
+				41B68A1C2647367A004BC184 /* UserService.swift in Sources */,
 				4109E968261668D00036377D /* ImageView.swift in Sources */,
 				4109E9C72617C49B0036377D /* InitialMovieViewController.swift in Sources */,
 				4109E90326165E3B0036377D /* BaseCoordinator.swift in Sources */,
@@ -772,6 +822,7 @@
 				4109E9412616613D0036377D /* Network.swift in Sources */,
 				41BF5CFC2646B58400A34F6A /* EmailViewModel.swift in Sources */,
 				4109E8DF261650550036377D /* movies.xcdatamodeld in Sources */,
+				41B68A18264731DA004BC184 /* Launcher.swift in Sources */,
 				4109E937261660E20036377D /* APIService.swift in Sources */,
 				4109E97E2617429A0036377D /* Movie.swift in Sources */,
 				4109E932261660920036377D /* HTTPMethod.swift in Sources */,
@@ -780,6 +831,7 @@
 				4109E962261665960036377D /* View.swift in Sources */,
 				4109E92D2616603C0036377D /* ViewControllerFactoryType.swift in Sources */,
 				4109E8D7261650550036377D /* SceneDelegate.swift in Sources */,
+				41B689ED26472CF0004BC184 /* AuthService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -926,7 +978,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.movies;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ds.movieoftheday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -946,7 +998,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.movies;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ds.movieoftheday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

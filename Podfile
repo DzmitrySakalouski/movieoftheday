@@ -8,6 +8,8 @@ target 'movies' do
   pod 'RxCocoa', '6.1.0'
   pod 'Swinject'
   pod 'YouTubePlayer'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Auth'
   # Pods for movies
 
 end

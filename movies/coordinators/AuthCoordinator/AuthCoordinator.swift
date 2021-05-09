@@ -33,7 +33,7 @@ class AuthCoordinator: CoordinatorType {
         let signInVC = factory.makeSignInViewController()
         var signInVM = container.resolve(SignInViewModelType.self)
         signInVM?.didPressSignIn = { [unowned self] in
-            print("Sign In")
+            self.finishFlow?()
         }
         signInVM?.didPressSignUp = { [unowned self] in
             print("HEllo")

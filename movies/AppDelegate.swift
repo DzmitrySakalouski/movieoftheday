@@ -8,6 +8,7 @@
 import UIKit
 import CoreData
 import Swinject
+import Firebase
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         DIService.registerContainer(for: self)
         DIService.registerDependencies()
+        
+        FirebaseApp.configure()
         return true
     }
 

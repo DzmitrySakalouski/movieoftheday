@@ -56,11 +56,7 @@ class SignInViewController: UIViewController {
     
     // MARK: handlers
     @objc private func onSignInPress() -> () {
-        guard let onSignInPress = viewModel.didPressSignIn else {
-            return
-        }
-        
-        onSignInPress()
+        viewModel?.logIn()
     }
     
     private func onSignUpLabelPress() -> () {

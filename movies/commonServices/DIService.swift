@@ -40,8 +40,16 @@ class DIService {
         })
         
         container.register(SignInViewModelType.self, factory: {r in
-            return SignInViewModel(emailViewModel: r.resolve(EmailViewModelType.self)!, passwordViewModel: r.resolve(PasswordViewModelType.self)!)
+            return SignInViewModel(emailViewModel: r.resolve(EmailViewModelType.self)!, passwordViewModel: r.resolve(PasswordViewModelType.self)!, userService: r.resolve(UserServiceType.self)!)
         })
+        
+        container.register(AuthServiceType.self, factory: {r in
+            return AuthService()
+        })
+        
+        container.register(UserServiceType.self, factory: {r in
+            return UserService(authService: r.resolve(AuthServiceType.self)!)
+        }).inObjectScope(.container)
     }
     
     static func registerContainer(for delegate: AppDelegate) -> () {
