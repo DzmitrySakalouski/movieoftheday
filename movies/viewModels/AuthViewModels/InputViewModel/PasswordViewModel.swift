@@ -24,6 +24,21 @@ class PasswordViewModel: PasswordViewModelType {
         return true
     }
     
+    func validateToConfirm(confirmText: String) -> Bool {
+        guard validateLength(text: data.value) else {
+            errorValue.accept("Please enter confirm password")
+            return false
+        }
+        
+        guard confirmText == data.value else {
+            errorValue.accept("Confirm password fail")
+            return false
+        }
+        
+        errorValue.accept(nil)
+        return true
+    }
+    
     func validateLength(text: String) -> Bool {
         return text.count > 6
     }

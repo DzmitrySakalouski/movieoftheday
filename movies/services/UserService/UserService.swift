@@ -34,4 +34,8 @@ class UserService: UserServiceType {
             self.errorMessage.accept(error.localizedDescription)
         }).disposed(by: disposeBag)
     }
+    
+    func signUp(email: String, password: String) -> Observable<User?> {
+        return authService.register(email: email, password: password).asObservable()
+    }
 }

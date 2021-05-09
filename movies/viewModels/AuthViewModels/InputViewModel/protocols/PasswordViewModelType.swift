@@ -9,4 +9,5 @@ import Foundation
 
 protocol PasswordViewModelType: ValidationType {
     func validateLength(text: String) -> Bool
+    func validateToConfirm(confirmText: String) -> Bool
 }

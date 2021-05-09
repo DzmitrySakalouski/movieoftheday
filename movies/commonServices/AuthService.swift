@@ -14,7 +14,6 @@ class AuthService: AuthServiceType {
     func configureAuthListener() -> Observable<Bool?> {
         return Observable<Bool?>.create{ observer in
             Auth.auth().addStateDidChangeListener { (auth, user) in
-                print(auth.currentUser, user)
                 observer.onNext(user != nil)
             }
             return Disposables.create()
@@ -43,6 +42,20 @@ class AuthService: AuthServiceType {
                 observer.onNext(true)
             } catch let error {
                 observer.onError(error)
+            }
+            return Disposables.create()
+        }
+    }
+    
+    func register(email: String, password: String) -> Observable<User?> {
+        return Observable<User?>.create{observer in
+            Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+                if error != nil {
+                    observer.onError(error!)
+                }
+                
+                let user = Auth.auth().currentUser
+                observer.onNext(user)
             }
             return Disposables.create()
         }

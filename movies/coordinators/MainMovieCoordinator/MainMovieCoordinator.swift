@@ -35,7 +35,7 @@ class MainMovieCoordinator: CoordinatorType {
         let mainMovieVM = container.resolve(MainMovieViewModelType.self)
         mainMovieVC.viewModel = mainMovieVM
         initialVC.pages = [mainMovieVC, detailsVC]
-        navigator.setRootModule(module: initialVC, hideNavBar: true)
+        navigator.setRootModule(module: initialVC, hideNavBar: false)
     }
     
     func start() {

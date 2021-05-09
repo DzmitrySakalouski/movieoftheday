@@ -17,6 +17,12 @@ class InitialPagerViewController: UIPageViewController {
         return l
     }()
     
+    lazy var settingsBarItem: UIBarButtonItem = {
+        let settingsItem = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(onSettingsPress))
+        settingsItem.tintColor = .white
+        return settingsItem
+    }()
+    
     lazy var frontImage: UIImageView = {
         let imageView = UIImageView()
         return imageView
@@ -93,6 +99,12 @@ class InitialPagerViewController: UIPageViewController {
         viewContainer.addSubview(primaryButton)
         primaryButton.anchor(top: label.bottomAnchor, paddingTop: 20, width: UIScreen.main.bounds.width * 0.7, height: 50)
         primaryButton.centerXAnchor.constraint(equalTo: viewContainer.centerXAnchor).isActive = true
+        
+        navigationItem.rightBarButtonItem = settingsBarItem
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.shadowImage = UIImage()
+
     }
     
     func configureBinding() {
@@ -128,6 +140,10 @@ class InitialPagerViewController: UIPageViewController {
     
     @objc func onDetailsPress() {
         viewModel?.switchIndex()
+    }
+    
+    @objc func onSettingsPress() {
+        viewModel.didSettingsPress()
     }
 }
 

@@ -7,17 +7,23 @@
 
 import Foundation
 import RxCocoa
+import RxSwift
 
 class InitialMovieViewModel: InitialMovieViewModelType {
     var currentIndex: BehaviorRelay<Int> = BehaviorRelay<Int>(value: 0)
     var movieService: MovieServiceType!
     var movie: BehaviorRelay<Movie?>!
     var movieImage: BehaviorRelay<UIImage?>!
+    var disposeBag = DisposeBag()
     
-    init(movieService: MovieServiceType) {
+    // TODO move to settings
+    var authService: AuthServiceType!
+    
+    init(movieService: MovieServiceType, authService: AuthServiceType) {
         self.movieService = movieService
         movie = movieService.movie
         movieImage = movieService.movieImage
+        self.authService = authService
     }
     
     func fetchMovie() {
@@ -26,5 +32,12 @@ class InitialMovieViewModel: InitialMovieViewModelType {
     
     func switchIndex() {
         self.currentIndex.accept(1)
+    }
+    
+    func didSettingsPress() -> () {
+        authService.signOut().subscribe(onError: {error in
+            // TODO: add error handling
+            print(error)
+        }).disposed(by: disposeBag)
     }
 }

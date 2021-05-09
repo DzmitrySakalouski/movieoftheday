@@ -24,7 +24,7 @@ class DIService {
         container.register(MainMovieViewModelType.self, factory: {r in return MainMovieViewModel(movieService: r.resolve(MovieServiceType.self)!)})
         
         container.register(InitialMovieViewModelType.self, factory: {r in
-            return InitialMovieViewModel(movieService: r.resolve(MovieServiceType.self)!)
+            return InitialMovieViewModel(movieService: r.resolve(MovieServiceType.self)!, authService: r.resolve(AuthServiceType.self)!)
         })
         
         container.register(DetailsViewModelType.self, factory: {r in
@@ -33,7 +33,7 @@ class DIService {
         
         container.register(PasswordViewModelType.self, factory: {r in
             return PasswordViewModel()
-        })
+        }).inObjectScope(.transient)
         
         container.register(EmailViewModelType.self, factory: {r in
             return EmailViewModel()
@@ -50,6 +50,10 @@ class DIService {
         container.register(UserServiceType.self, factory: {r in
             return UserService(authService: r.resolve(AuthServiceType.self)!)
         }).inObjectScope(.container)
+        
+        container.register(SignUpViewModelType.self, factory: {r in
+            return SignUpViewModel(emailViewModel: r.resolve(EmailViewModelType.self)!, passwordViewModel: r.resolve(PasswordViewModelType.self)!, userService: r.resolve(UserServiceType.self)!, confirmPasswordViewModel: r.resolve(PasswordViewModelType.self)!)
+        })
     }
     
     static func registerContainer(for delegate: AppDelegate) -> () {

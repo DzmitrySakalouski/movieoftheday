@@ -13,4 +13,5 @@ protocol AuthServiceType {
     func configureAuthListener() -> Observable<Bool?>
     func signInWithEmail(email: String, password: String) -> Observable<User?>
     func signOut() -> Observable<Bool>
+    func register(email: String, password: String) -> Observable<User?>
 }

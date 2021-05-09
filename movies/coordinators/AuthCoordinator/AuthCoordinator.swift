@@ -36,7 +36,6 @@ class AuthCoordinator: CoordinatorType {
             self.finishFlow?()
         }
         signInVM?.didPressSignUp = { [unowned self] in
-            print("HEllo")
             self.showSignUpViewController()
         }
         signInVC.viewModel = signInVM
@@ -45,6 +44,14 @@ class AuthCoordinator: CoordinatorType {
     
     func showSignUpViewController() {
         let signUpVC = factory.makeSignUpViewController()
+        var signUpVM = container.resolve(SignUpViewModelType.self)
+        signUpVM?.didPressSignInLabel = { [unowned self] in
+            self.navigator.popModule()
+        }
+        signUpVM?.didFinishSignUp = { [unowned self] in
+            self.finishFlow?()
+        }
+        signUpVC.viewModel = signUpVM
         navigator.navigate(module: signUpVC)
     }
 }

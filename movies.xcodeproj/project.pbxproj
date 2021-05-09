@@ -50,6 +50,8 @@
 		4109E9CC2617C79A0036377D /* InitialMovieViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4109E9CB2617C79A0036377D /* InitialMovieViewModel.swift */; };
 		4109E9D12617C85E0036377D /* InitialMovieViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4109E9D02617C85E0036377D /* InitialMovieViewModelType.swift */; };
 		410BA333263D898E00C2E686 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410BA332263D898E00C2E686 /* SignInViewController.swift */; };
+		411B7C4926488CCB00DE2412 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411B7C4826488CCB00DE2412 /* SignUpViewModel.swift */; };
+		411B7C4D26488CF200DE2412 /* SignUpViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411B7C4C26488CF200DE2412 /* SignUpViewModelType.swift */; };
 		411E7B02263D8E2800982D1B /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411E7B01263D8E2800982D1B /* AuthCoordinator.swift */; };
 		413F3D692619EB0E00A9D09C /* DetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413F3D682619EB0D00A9D09C /* DetailsViewModel.swift */; };
 		413F3D6D2619EB2500A9D09C /* DetailsViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413F3D6C2619EB2500A9D09C /* DetailsViewModelType.swift */; };
@@ -123,6 +125,8 @@
 		4109E9CB2617C79A0036377D /* InitialMovieViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialMovieViewModel.swift; sourceTree = "<group>"; };
 		4109E9D02617C85E0036377D /* InitialMovieViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialMovieViewModelType.swift; sourceTree = "<group>"; };
 		410BA332263D898E00C2E686 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		411B7C4826488CCB00DE2412 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		411B7C4C26488CF200DE2412 /* SignUpViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModelType.swift; sourceTree = "<group>"; };
 		411E7B01263D8E2800982D1B /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		413F3D682619EB0D00A9D09C /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
 		413F3D6C2619EB2500A9D09C /* DetailsViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModelType.swift; sourceTree = "<group>"; };
@@ -518,6 +522,42 @@
 			path = SignInViewController;
 			sourceTree = "<group>";
 		};
+		411B7C4426488C5C00DE2412 /* InputViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				411B7C4526488C8A00DE2412 /* protocols */,
+				41BF5CFF2646B72900A34F6A /* PasswordViewModel.swift */,
+				41BF5CFB2646B58400A34F6A /* EmailViewModel.swift */,
+			);
+			path = InputViewModel;
+			sourceTree = "<group>";
+		};
+		411B7C4526488C8A00DE2412 /* protocols */ = {
+			isa = PBXGroup;
+			children = (
+				41BF5D032646B86600A34F6A /* PasswordViewModelType.swift */,
+				41BF5D072646B8A500A34F6A /* EmailViewModelType.swift */,
+			);
+			path = protocols;
+			sourceTree = "<group>";
+		};
+		411B7C4626488CB400DE2412 /* SignUpViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				411B7C4B26488CD000DE2412 /* protocols */,
+				411B7C4826488CCB00DE2412 /* SignUpViewModel.swift */,
+			);
+			path = SignUpViewModel;
+			sourceTree = "<group>";
+		};
+		411B7C4B26488CD000DE2412 /* protocols */ = {
+			isa = PBXGroup;
+			children = (
+				411B7C4C26488CF200DE2412 /* SignUpViewModelType.swift */,
+			);
+			path = protocols;
+			sourceTree = "<group>";
+		};
 		411E7B00263D8E1200982D1B /* AuthCoordinator */ = {
 			isa = PBXGroup;
 			children = (
@@ -570,6 +610,8 @@
 		41BF5CF92646B56200A34F6A /* AuthViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				411B7C4626488CB400DE2412 /* SignUpViewModel */,
+				411B7C4426488C5C00DE2412 /* InputViewModel */,
 				41BF5CFA2646B56F00A34F6A /* SignInViewModel */,
 			);
 			path = AuthViewModels;
@@ -579,8 +621,6 @@
 			isa = PBXGroup;
 			children = (
 				41BF5D022646B84E00A34F6A /* protocols */,
-				41BF5CFB2646B58400A34F6A /* EmailViewModel.swift */,
-				41BF5CFF2646B72900A34F6A /* PasswordViewModel.swift */,
 				41BF5D0C2646B97100A34F6A /* SignInViewModel.swift */,
 			);
 			path = SignInViewModel;
@@ -589,8 +629,6 @@
 		41BF5D022646B84E00A34F6A /* protocols */ = {
 			isa = PBXGroup;
 			children = (
-				41BF5D032646B86600A34F6A /* PasswordViewModelType.swift */,
-				41BF5D072646B8A500A34F6A /* EmailViewModelType.swift */,
 				41BF5D0F2646B98C00A34F6A /* SignInViewModelType.swift */,
 			);
 			path = protocols;
@@ -779,6 +817,7 @@
 				4109E9452616625D0036377D /* Navigator.swift in Sources */,
 				4109E8FF26165E300036377D /* ApplicationCoordinator.swift in Sources */,
 				413F3D6D2619EB2500A9D09C /* DetailsViewModelType.swift in Sources */,
+				411B7C4926488CCB00DE2412 /* SignUpViewModel.swift in Sources */,
 				4109E91726165F560036377D /* NavigatorType.swift in Sources */,
 				41F799AA26448C1900BA4444 /* RoundedButton.swift in Sources */,
 				4109E9A0261773DE0036377D /* DetailsViewController.swift in Sources */,
@@ -806,6 +845,7 @@
 				4109E948261662AC0036377D /* CoordinatorFactory.swift in Sources */,
 				41F7F730263DA2E0003325BC /* TextInput.swift in Sources */,
 				4109E9D12617C85E0036377D /* InitialMovieViewModelType.swift in Sources */,
+				411B7C4D26488CF200DE2412 /* SignUpViewModelType.swift in Sources */,
 				4109E94B261662C20036377D /* ViewControllerFactory.swift in Sources */,
 				4109E8D5261650550036377D /* AppDelegate.swift in Sources */,
 				41BF5D002646B72900A34F6A /* PasswordViewModel.swift in Sources */,

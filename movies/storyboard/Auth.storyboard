@@ -149,14 +149,14 @@
                                     <attributedString key="attributedTitle">
                                         <fragment content="DON'T HAVE AN ACCOUNT? ">
                                             <attributes>
-                                                <color key="NSColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="NSColor" red="0.0" green="0.0" blue="0.001082232209289966" alpha="1" colorSpace="calibratedRGB"/>
                                                 <font key="NSFont" size="17" name="DINCondensed-Bold"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                             </attributes>
                                         </fragment>
-                                        <fragment content="SIGN IN ">
+                                        <fragment content="SIGN UP">
                                             <attributes>
-                                                <color key="NSColor" red="0.42897220533721303" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="NSColor" red="0.44411048110650508" green="0.0" blue="0.001082232209289966" alpha="1" colorSpace="calibratedRGB"/>
                                                 <font key="NSFont" size="17" name="DINCondensed-Bold"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                             </attributes>
@@ -209,7 +209,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="bhC-fF-aOu">
-                                <rect key="frame" x="20" y="32" width="280" height="292"/>
+                                <rect key="frame" x="20" y="32" width="280" height="225"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="REGISTER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfw-nu-OZV">
                                         <rect key="frame" x="101.5" y="0.0" width="77" height="26"/>
@@ -218,39 +218,31 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="Ll4-XW-GfP">
-                                        <rect key="frame" x="0.0" y="56" width="280" height="236"/>
+                                        <rect key="frame" x="0.0" y="56" width="280" height="169"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CeI-N2-TXh" customClass="TextInput" customModule="movies" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="280" height="35"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="35" id="YI1-3c-Ym9"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CfM-4s-5W4" customClass="TextInput" customModule="movies" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="67" width="280" height="35"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="280" height="35"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="hus-8k-6hN"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Passord" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ln0-bC-Ke7" customClass="TextInput" customModule="movies" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="134" width="280" height="35"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ln0-bC-Ke7" customClass="TextInput" customModule="movies" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="67" width="280" height="35"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="ViJ-Sk-7Ft"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hBU-XG-0hg" customClass="TextInput" customModule="movies" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="201" width="280" height="35"/>
+                                                <rect key="frame" x="0.0" y="134" width="280" height="35"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="DN1-KT-SEE"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                             </textField>
                                         </subviews>
                                     </stackView>
@@ -261,7 +253,7 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sdr-Hc-5wF">
-                                <rect key="frame" x="20" y="359" width="280" height="38"/>
+                                <rect key="frame" x="20" y="292" width="280" height="38"/>
                                 <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="22"/>
                                 <color key="tintColor" red="0.34230269870000002" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="SIGN UP"/>
@@ -301,6 +293,13 @@
                             <constraint firstItem="bhC-fF-aOu" firstAttribute="top" secondItem="NMO-tr-lm8" secondAttribute="top" constant="32" id="vpn-LO-VwD"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="confirmPasswordTextField" destination="hBU-XG-0hg" id="Jtt-f0-yI4"/>
+                        <outlet property="emailTextField" destination="CfM-4s-5W4" id="95p-tU-G04"/>
+                        <outlet property="passwordTextField" destination="ln0-bC-Ke7" id="aFt-yh-pIw"/>
+                        <outlet property="signInLabel" destination="9cp-8L-KFO" id="rRu-93-ykh"/>
+                        <outlet property="signUpButton" destination="sdr-Hc-5wF" id="fXb-jq-bAq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="okI-c8-47r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -308,9 +307,6 @@
         </scene>
     </scenes>
     <designables>
-        <designable name="CeI-N2-TXh">
-            <size key="intrinsicContentSize" width="43.5" height="21.5"/>
-        </designable>
         <designable name="CfM-4s-5W4">
             <size key="intrinsicContentSize" width="41" height="21.5"/>
         </designable>
@@ -324,10 +320,10 @@
             <size key="intrinsicContentSize" width="19" height="23.5"/>
         </designable>
         <designable name="hBU-XG-0hg">
-            <size key="intrinsicContentSize" width="131.5" height="21.5"/>
+            <size key="intrinsicContentSize" width="131.5" height="20"/>
         </designable>
         <designable name="ln0-bC-Ke7">
-            <size key="intrinsicContentSize" width="58.5" height="21.5"/>
+            <size key="intrinsicContentSize" width="70.5" height="20"/>
         </designable>
         <designable name="mpP-b5-XE6">
             <size key="intrinsicContentSize" width="30" height="34"/>

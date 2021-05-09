@@ -23,23 +23,11 @@ class ApplicationCoordinator: BaseCoordinator {
     override func start() {
         // TODO: move to launch service
         authService?.configureAuthListener().subscribe(onNext: {[unowned self] isAuthenticated in
-            print(Auth.auth().currentUser)
-            print(Auth.auth().currentUser)
-            print(Auth.auth().currentUser)
-            print(Auth.auth().currentUser)
-
-            
             guard let isAuth = isAuthenticated else {
-                print("NOOOOOOO")
                 return
-                
             }
             if isAuth {
                 self.runMainMovieFlow()
-                print(Auth.auth().currentUser)
-                print(Auth.auth().currentUser)
-                print(Auth.auth().currentUser)
-                print(Auth.auth().currentUser)
             } else {
                 self.runAuthFlow()
             }

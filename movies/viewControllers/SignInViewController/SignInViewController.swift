@@ -55,7 +55,7 @@ class SignInViewController: UIViewController {
     }
     
     // MARK: handlers
-    @objc private func onSignInPress() -> () {
+    private func onSignInPress() -> () {
         viewModel?.logIn()
     }
     

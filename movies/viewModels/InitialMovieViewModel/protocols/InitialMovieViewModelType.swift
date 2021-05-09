@@ -15,4 +15,5 @@ protocol InitialMovieViewModelType {
     var movieImage: BehaviorRelay<UIImage?>! { get set }
     func fetchMovie() -> ()
     func switchIndex() -> ()
+    func didSettingsPress() -> ()
 }
