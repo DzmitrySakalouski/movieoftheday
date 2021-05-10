@@ -9,16 +9,18 @@ import Foundation
 
 enum MovieEndpoint {
     case getDailyMovie([URLQueryItem])
-    case movieDetails(Int)
+    case movieVideo(Int)
+    case getMovieById(Int)
     
     var endpoint: Endpoint {
         switch self {
         case .getDailyMovie(let serchOptions):
             return Endpoint(path: "/3/movie/popular", parameters: getParameters(serchOptions), method: .get)
-        case .movieDetails(let id):
+        case .movieVideo(let id):
             return Endpoint(path: "/3/movie/\(id)/videos", parameters: getParameters([]), method: .get)
+        case .getMovieById(let id):
+            return Endpoint(path: "/3/movie/\(id)", parameters: getParameters([]), method: .get)
         }
-        
     }
     
     func getParameters(_ parameters: [URLQueryItem]) -> [URLQueryItem] {

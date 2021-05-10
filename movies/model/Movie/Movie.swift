@@ -50,3 +50,41 @@ struct MovieResponse: Codable {
         case totalPages = "total_pages"
     }
 }
+
+struct MovieDetails: Codable {
+    var posterPath: String?
+    var adult: Bool
+    var backdropPath: String?
+    var budget: Int
+    var genres: [Genre]
+    var homepage: String?
+    var id: Int
+    var originalLanguage: String
+    var overview: String?
+    var releaseDate: String
+    var revenue: Int
+    var runtime: Int?
+    var tagline: String?
+    var title: String
+    var voteAverage: Double
+    var voteCount: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case posterPath = "poster_path"
+        case adult = "adult"
+        case backdropPath = "backdrop_path"
+        case budget = "budget"
+        case genres = "genres"
+        case homepage = "homepage"
+        case id = "id"
+        case originalLanguage = "original_language"
+        case overview = "overview"
+        case releaseDate = "release_date"
+        case revenue = "revenue"
+        case runtime = "runtime"
+        case tagline = "tagline"
+        case title = "title"
+        case voteAverage = "vote_average"
+        case voteCount = "vote_count"
+    }
+}

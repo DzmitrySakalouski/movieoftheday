@@ -10,6 +10,9 @@ import RxCocoa
 
 protocol DetailsViewModelType  {
     var movieService: MovieServiceType! { get set }
-    var movie: BehaviorRelay<Movie?>! { get set }
+    var movie: BehaviorRelay<MovieDetails?>! { get set }
     var movieImage: BehaviorRelay<UIImage?>! { get set }
+    var isLoading: BehaviorRelay<Bool> { get }
+    func getVideoTrailerData() -> ()
+    
 }

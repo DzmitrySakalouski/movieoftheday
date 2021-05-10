@@ -12,8 +12,11 @@ import RxSwift
 protocol MovieServiceType {
     var apiClient: APIClientType!  { get set }
     var disposeBag: DisposeBag { get }
-    var movie: BehaviorRelay<Movie?> { get set }
+    var movie: BehaviorRelay<MovieDetails?> { get set }
     var movieImage: BehaviorRelay<UIImage?> { get set }
-    func getPrimaryMovie()
-    func loadImage(path: String)
+    var movieVideoData: BehaviorRelay<VideoResponse?> { get set }
+    func getPrimaryMovie() -> ()
+    func loadImage(path: String) -> ()
+    func getTrailerData(for id: Int)  -> Observable<VideoResponse?>
+    func getMovieById() -> ()
 }

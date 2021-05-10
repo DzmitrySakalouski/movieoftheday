@@ -34,6 +34,7 @@ class DetailsViewController: UIViewController {
         view.backgroundColor = .red
         configureView()
         configureBinding()
+        viewModel?.getVideoTrailerData()
     }
     
     func configureView() {

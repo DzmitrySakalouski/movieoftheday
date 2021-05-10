@@ -12,7 +12,7 @@ import RxSwift
 class InitialMovieViewModel: InitialMovieViewModelType {
     var currentIndex: BehaviorRelay<Int> = BehaviorRelay<Int>(value: 0)
     var movieService: MovieServiceType!
-    var movie: BehaviorRelay<Movie?>!
+    var movie: BehaviorRelay<MovieDetails?>!
     var movieImage: BehaviorRelay<UIImage?>!
     var disposeBag = DisposeBag()
     
@@ -27,7 +27,7 @@ class InitialMovieViewModel: InitialMovieViewModelType {
     }
     
     func fetchMovie() {
-        movieService?.getPrimaryMovie()
+        movieService?.getMovieById()
     }
     
     func switchIndex() {
@@ -36,7 +36,6 @@ class InitialMovieViewModel: InitialMovieViewModelType {
     
     func didSettingsPress() -> () {
         authService.signOut().subscribe(onError: {error in
-            // TODO: add error handling
             print(error)
         }).disposed(by: disposeBag)
     }
