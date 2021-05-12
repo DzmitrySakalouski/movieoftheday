@@ -124,7 +124,7 @@ class InitialPagerViewController: UIPageViewController {
             self?.setViewControllers([pageList[index]], direction: .forward, animated: true, completion: nil)
             if index == 1 {
                 self?.xPicConstraint?.isActive = false
-                self?.frontImage.anchor(top: self?.view.topAnchor, left: self?.view.leftAnchor, paddingTop: 80, paddingLeft: 30, width: 110, height: 170)
+                self?.frontImage.anchor(top: self?.view.topAnchor, left: self?.view.leftAnchor, paddingTop: 60, paddingLeft: 20, width: 100, height: 160)
                 self?.viewContainer.anchor(width: 0, height: 0)
                 self?.primaryButton.removeFromSuperview()
                 self?.label.removeFromSuperview()
