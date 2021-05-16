@@ -15,6 +15,7 @@ class InitialMovieViewModel: InitialMovieViewModelType {
     var movie: BehaviorRelay<MovieDetails?>!
     var movieImage: BehaviorRelay<UIImage?>!
     var disposeBag = DisposeBag()
+    var isLoading: BehaviorRelay<Bool> = BehaviorRelay<Bool>(value: true)
     
     // TODO move to settings
     var authService: AuthServiceType!
@@ -26,8 +27,8 @@ class InitialMovieViewModel: InitialMovieViewModelType {
         self.authService = authService
     }
     
-    func fetchMovie() {
-        movieService?.getMovieById()
+    func fetchMovie(id: Int) {
+        movieService?.getMovieById(id: id)
     }
     
     func switchIndex() {

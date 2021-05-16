@@ -159,7 +159,7 @@ class DetailsViewController: UIViewController {
         movieDetailsContainer.anchor(top: imageContainer.bottomAnchor, paddingTop: -15)
         movieDetailsContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 25).isActive = true
         movieDetailsContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        movieDetailsContainer.heightAnchor.constraint(equalToConstant: 89).isActive = true
+        movieDetailsContainer.heightAnchor.constraint(equalToConstant: 78).isActive = true
         
         configureDetailsStackStack()
         configureHorizontalDetailsStack()
@@ -173,7 +173,7 @@ class DetailsViewController: UIViewController {
         overviewLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         overviewLabel.topAnchor.constraint(equalTo: overviewLabelTitle.bottomAnchor, constant: 25).isActive = true
         overviewLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 9/10).isActive = true
-        overviewLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        overviewLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30).isActive = true
     }
 
     func setupScrollView(){
@@ -283,12 +283,17 @@ class DetailsViewController: UIViewController {
             return
         }
         
-        genresList.forEach{ [weak self] genre in
-            let label = UILabel()
-            label.font = UIFont(name: "ProximaNova-Light", size: 15)
-            label.text = genre.name
-            self?.genresStack.addArrangedSubview(label)
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.font = UIFont(name: "ProximaNova-Light", size: 15)
+        var genresString = ""
+        
+        genresList.forEach{ genre in
+            genresString = genresString + "\(genre.name) "
         }
+        
+        label.text = genresString
+        genresStack.addArrangedSubview(label)
     }
     
     private func getRuntime(_ runtimeMinutes: Int?) -> String {

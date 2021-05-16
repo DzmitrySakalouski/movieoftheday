@@ -9,6 +9,8 @@ import UIKit
 import RxSwift
 
 class InitialPagerViewController: UIPageViewController {
+    var activityView: UIActivityIndicatorView?
+    
     lazy var label: UILabel = {
         let l = UILabel()
         l.textColor = .white
@@ -56,7 +58,7 @@ class InitialPagerViewController: UIPageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureBinding()
-        viewModel?.fetchMovie()
+        viewModel?.movieService.getPrimaryMovie()
         dataSource = self
         delegate = nil
         
@@ -72,6 +74,8 @@ class InitialPagerViewController: UIPageViewController {
         let view = UIView()
         return view
     }()
+    
+    let v = UIView()
     
     var xPicConstraint: NSLayoutConstraint?
     
@@ -100,15 +104,49 @@ class InitialPagerViewController: UIPageViewController {
         primaryButton.anchor(top: label.bottomAnchor, paddingTop: 20, width: UIScreen.main.bounds.width * 0.7, height: 50)
         primaryButton.centerXAnchor.constraint(equalTo: viewContainer.centerXAnchor).isActive = true
         
-//        navigationItem.rightBarButtonItem = settingsBarItem
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.shadowImage = UIImage()
 
     }
     
+    func showLoader() {
+        primaryButton.isHidden = true
+        activityView = UIActivityIndicatorView(style: .large)
+        activityView?.color = .white
+        activityView?.tintColor = .white
+
+        activityView?.center = view.center
+        view.addSubview(activityView!)
+        activityView?.startAnimating()
+    }
+    
+    func hideLoader() {
+        if (activityView != nil){
+            primaryButton.isHidden = false
+
+            activityView?.stopAnimating()
+        }
+    }
+    
     func configureBinding() {
+        viewModel.isLoading.subscribe(onNext: {[weak self] isLoading in
+            if isLoading {
+                self?.showLoader()
+            } else {
+                self?.hideLoader()
+            }
+        }).disposed(by: disposeBag)
+        
+        viewModel.movieService.randomMovieId.subscribe(onNext: {[unowned self] id in
+            guard let movieId = id else { return }
+            self.viewModel.fetchMovie(id: movieId)
+        }).disposed(by: disposeBag)
+        
         viewModel?.movie.subscribe(onNext: { [weak self] movie in
+            if movie != nil {
+                self?.viewModel.isLoading.accept(false)
+            }
             self?.label.text = movie?.title
         }).disposed(by: disposeBag)
         

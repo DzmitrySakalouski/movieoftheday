@@ -15,7 +15,7 @@ enum MovieEndpoint {
     var endpoint: Endpoint {
         switch self {
         case .getDailyMovie(let serchOptions):
-            return Endpoint(path: "/3/movie/popular", parameters: getParameters(serchOptions), method: .get)
+            return Endpoint(path: "/3/discover/movie", parameters: getParameters(serchOptions), method: .get)
         case .movieVideo(let id):
             return Endpoint(path: "/3/movie/\(id)/videos", parameters: getParameters([]), method: .get)
         case .getMovieById(let id):

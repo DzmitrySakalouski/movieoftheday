@@ -13,7 +13,8 @@ protocol InitialMovieViewModelType {
     var currentIndex: BehaviorRelay<Int> { get set }
     var movie: BehaviorRelay<MovieDetails?>! { get set }
     var movieImage: BehaviorRelay<UIImage?>! { get set }
-    func fetchMovie() -> ()
+    var isLoading: BehaviorRelay<Bool> { get }
+    func fetchMovie(id: Int) -> ()
     func switchIndex() -> ()
     func didSettingsPress() -> ()
 }

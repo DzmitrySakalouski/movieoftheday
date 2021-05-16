@@ -15,25 +15,27 @@ class MovieService: MovieServiceType {
     var movie: BehaviorRelay<MovieDetails?> = BehaviorRelay<MovieDetails?>(value: nil)
     var movieImage: BehaviorRelay<UIImage?> = BehaviorRelay<UIImage?>(value: nil)
     var movieVideoData: BehaviorRelay<VideoResponse?> = BehaviorRelay<VideoResponse?>(value: nil)
+    var randomMovieId: BehaviorRelay<Int?> = BehaviorRelay<Int?>(value: nil)
     
     init(apiClient: APIClientType) {
         self.apiClient = apiClient
     }
     
     func getPrimaryMovie() {
-//        apiClient.call(endpoint: MovieEndpoint.getDailyMovie([]).endpoint).observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] (movie: MovieResponse) in
-//            self?.movie.accept(movie.results[0])
-//            print(movie.results[0].id)
-//            if let imagePath = movie.results[0].posterPath {
-//                self?.loadImage(path: imagePath)
-//            }
-//        }).disposed(by: disposeBag)
+        apiClient.call(endpoint: MovieEndpoint.getDailyMovie([]).endpoint).observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] (movieResponse: MovieResponse) in
+            let randomPage = Int.random(in: 1...movieResponse.totalPages)
+            
+            self?.apiClient.call(endpoint: MovieEndpoint.getDailyMovie([URLQueryItem(name: "page", value: String(randomPage))]).endpoint).observe(on: MainScheduler.instance).subscribe(onNext: { [unowned self] (movieResponse1: MovieResponse) in
+                let randomId = Int.random(in: 1...movieResponse1.results.count - 1)
+                let movieId = movieResponse1.results[randomId].id
+                self!.randomMovieId.accept(movieId)
+            }).disposed(by: self!.disposeBag)
+        }).disposed(by: disposeBag)
     }
     
-    func getMovieById() {
-        apiClient.call(endpoint: MovieEndpoint.getMovieById(550).endpoint).observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] (movie: MovieDetails) in
+    func getMovieById(id: Int) {
+        apiClient.call(endpoint: MovieEndpoint.getMovieById(id).endpoint).observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] (movie: MovieDetails) in
             self?.movie.accept(movie)
-            print(movie)
             if let imagePath = movie.posterPath {
                 self?.loadImage(path: imagePath)
             }
@@ -41,7 +43,6 @@ class MovieService: MovieServiceType {
     }
     
     func loadImage(path: String) {
-        
         let imageURL = URL(string: "https://image.tmdb.org/t/p/w500\(path)")!
         apiClient.image(url: imageURL).observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] image in
             self?.movieImage.accept(image)
@@ -51,7 +52,6 @@ class MovieService: MovieServiceType {
     func getTrailerData(for id: Int) -> Observable<VideoResponse?> {
         return apiClient.call(endpoint: MovieEndpoint.movieVideo(id).endpoint).observe(on: MainScheduler.instance).map{[weak self] (movieVideoData: VideoResponse) in
             self?.movieVideoData.accept(movieVideoData)
-            print(movieVideoData.results[0])
             return movieVideoData
         }.asObservable()
     }
