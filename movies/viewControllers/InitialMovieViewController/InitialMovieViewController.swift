@@ -133,7 +133,9 @@ class InitialPagerViewController: UIPageViewController {
                     self?.view.layoutIfNeeded()
                     self?.label.textColor = .clear
                     self?.primaryButton.tintColor = .clear
-                }, completion: nil)
+                }, completion: { [weak self] _ in
+                    self?.frontImage.removeFromSuperview()
+                })
             }
         }).disposed(by: disposeBag)
     }

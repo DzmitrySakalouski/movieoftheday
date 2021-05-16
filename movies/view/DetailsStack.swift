@@ -16,7 +16,7 @@ class DetailsStack: UIStackView {
         return iv
     }()
     
-    var value: String = "" {
+    var value: String = "123" {
         didSet {
             label.text = value
         }
@@ -35,8 +35,8 @@ class DetailsStack: UIStackView {
     
     lazy var label: UILabel = {
         let label = UILabel()
-        label.textColor = .black
-        label.font = UIFont(name: "BebasNeue-Regular", size: 17)
+        label.textColor = Colors.textGray.getColor()
+        label.font = UIFont(name: "BebasNeue-Regular", size: 14)
         return label
     }()
 
@@ -57,7 +57,7 @@ class DetailsStack: UIStackView {
         label.anchor(top: labelContainer.topAnchor, left: labelContainer.leftAnchor, bottom: labelContainer.bottomAnchor, right: labelContainer.rightAnchor)
         addArrangedSubview(imageView)
         addArrangedSubview(labelContainer)
-        imageView.anchor(width: 50, height: 50)
+        imageView.anchor(width: 35, height: 35)
     }
 
 }

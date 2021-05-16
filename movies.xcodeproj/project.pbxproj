@@ -131,6 +131,7 @@
 		411B7C4C26488CF200DE2412 /* SignUpViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModelType.swift; sourceTree = "<group>"; };
 		411B7C6A264C02FE00DE2412 /* DetailsStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsStack.swift; sourceTree = "<group>"; };
 		411B7C80264C261A00DE2412 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		411B7C84264C29F800DE2412 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file; name = Base; path = "Base.lproj/ProximaNova-Light.ttf"; sourceTree = "<group>"; };
 		411E7B01263D8E2800982D1B /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		413F3D682619EB0D00A9D09C /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
 		413F3D6C2619EB2500A9D09C /* DetailsViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModelType.swift; sourceTree = "<group>"; };
@@ -386,6 +387,7 @@
 		4109E96B26166E6F0036377D /* fonts */ = {
 			isa = PBXGroup;
 			children = (
+				411B7C85264C29F800DE2412 /* ProximaNova-Light.ttf */,
 				4109E96C26166E810036377D /* BebasNeue-Regular.ttf */,
 			);
 			path = fonts;
@@ -893,6 +895,15 @@
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
+		};
+		411B7C85264C29F800DE2412 /* ProximaNova-Light.ttf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				411B7C84264C29F800DE2412 /* Base */,
+			);
+			name = "ProximaNova-Light.ttf";
+			path = assets;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXVariantGroup section */
 

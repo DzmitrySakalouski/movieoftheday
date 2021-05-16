@@ -11,57 +11,65 @@ import RxSwift
 class DetailsViewController: UIViewController {
     var viewModel: DetailsViewModelType!
     let disposeBag = DisposeBag()
-    
-    lazy var titleLabel: UILabel = {
+    let scrollView = UIScrollView()
+    let contentView = UIView()
+
+    let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "BebasNeue-Regular", size: 32)
+        label.font = UIFont(name: "BebasNeue-Regular", size: 24)
+        label.numberOfLines = 0
         label.textColor = .white
         label.textAlignment = .right
         return label
     }()
-    
-    lazy var overviewLabel: UILabel = {
+        
+    let overviewLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "BebasNeue-Regular", size: 16)
+        label.text = ""
+        label.numberOfLines = 0
+        label.font = UIFont(name: "ProximaNova-Light", size: 15)
+        label.sizeToFit()
         label.textColor = Colors.textGray.getColor()
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    lazy var button: UIButton = {
-        let button = UIButton()
-        button.setTitle("Get more details", for: .normal)
-        button.titleLabel?.font = UIFont(name: "BebasNeue-Regular", size: 18)
-        button.titleLabel?.textColor = .red
-        button.titleLabel?.textAlignment = .center
-        button.layer.borderColor = UIColor.gray.cgColor
-        button.layer.borderWidth = 0.5
-        return button
-    }()
-    
-    lazy var backgroundTopImage: UIImageView = {
+    let frontImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.addBlur(0.95)
         return imageView
     }()
     
-    lazy var imageContainer: UIView = {
-        let container = UIView()
-        container.backgroundColor = .white
-        container.layer.shadowColor = UIColor.black.cgColor
-        container.layer.shadowOpacity = 1
-        container.layer.shadowOffset = .zero
-        container.layer.shadowRadius = 10
-        return container
+    let overviewLabelTitle: UILabel = {
+        let label = UILabel()
+        label.text = "Plot summary".uppercased()
+        label.numberOfLines = 0
+        label.font = UIFont(name: "BebasNeue-Regular", size: 32)
+        label.textColor = .black
+        label.sizeToFit()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
-    lazy var taglineLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .white
-        label.numberOfLines = 0
-        label.font = UIFont(name: "BebasNeue-Regular", size: 16)
-        return label
+    var imageContainer: UIImageView = {
+        let imageContainerView = UIImageView()
+        imageContainerView.translatesAutoresizingMaskIntoConstraints = false
+        imageContainerView.backgroundColor = .systemGray
+        imageContainerView.addBlur(1)
+        return imageContainerView
+    }()
+    
+    var movieDetailsContainer: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.4
+        view.layer.shadowOffset = .zero
+        view.layer.shadowRadius = 20
+        view.backgroundColor = .white
+        view.layer.masksToBounds = false
+        view.layer.cornerRadius = 40
+        view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMinXMinYCorner]
+        return view
     }()
     
     var voteItem: DetailsStack = {
@@ -69,13 +77,14 @@ class DetailsViewController: UIViewController {
         detailsItem.image = UIImage(systemName: "star.fill")?.withTintColor(UIColor(red: 252/255, green: 196/255, blue: 25/255, alpha: 1), renderingMode: .alwaysOriginal)
         return detailsItem
     }()
-    
-    var budgetItem: DetailsStack = {
+        
+    var trailerItem: DetailsStack = {
         let detailsItem = DetailsStack()
-        detailsItem.image = UIImage(systemName: "dollarsign.circle.fill")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        detailsItem.value = "Trailer"
+        detailsItem.image = #imageLiteral(resourceName: "youtube")
         return detailsItem
     }()
-    
+        
     var countItem: DetailsStack = {
         let detailsItem = DetailsStack()
         detailsItem.image = UIImage(systemName: "plus.bubble")?.withTintColor(UIColor(red: 81/255, green: 207/255, blue: 102/255, alpha: 1), renderingMode: .alwaysOriginal)
@@ -88,73 +97,153 @@ class DetailsViewController: UIViewController {
         detailsStack.distribution = .equalSpacing
         return detailsStack
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureNavBar()
         view.backgroundColor = .white
-        configureView()
-        configureBinding()
-        viewModel?.getVideoTrailerData()
+
+        setupScrollView()
+        setupViews()
+        configureSubscriptions()
     }
     
-    func configureView() {
-        view.addSubview(imageContainer)
-        imageContainer.anchor(top: view.topAnchor, left: view.leftAnchor, right: view.rightAnchor, height: UIScreen.main.bounds.height * 0.5)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
-        imageContainer.addSubview(backgroundTopImage)
-        backgroundTopImage.anchor(top: imageContainer.topAnchor, left: imageContainer.leftAnchor, bottom: imageContainer.bottomAnchor, right: imageContainer.rightAnchor)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [unowned self] in
+            self.imageContainer.addSubview(self.frontImageView)
+            self.frontImageView.anchor(top: self.imageContainer.topAnchor, left: self.imageContainer.leftAnchor, paddingTop: 60, paddingLeft: 20, width: 100, height: 160)
+        }
+    }
+    
+    func setupViews(){
+        contentView.addSubview(imageContainer)
+        imageContainer.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        imageContainer.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        imageContainer.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
+        imageContainer.heightAnchor.constraint(equalToConstant: 280).isActive = true
         
-        backgroundTopImage.addSubview(titleLabel)
-        titleLabel.anchor(bottom: backgroundTopImage.bottomAnchor, right: view.rightAnchor, paddingBottom: 50, paddingRight: 20, width: UIScreen.main.bounds.width * 0.5)
+        configureHeader()
         
-        imageContainer.addSubview(taglineLabel)
-        taglineLabel.anchor(top: titleLabel.bottomAnchor, right: imageContainer.rightAnchor, paddingTop: 5, paddingRight: 20)
-                
-        // TODO move to extension
+        contentView.addSubview(movieDetailsContainer)
+        movieDetailsContainer.anchor(top: imageContainer.bottomAnchor, paddingTop: -15)
+        movieDetailsContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 25).isActive = true
+        movieDetailsContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        movieDetailsContainer.heightAnchor.constraint(equalToConstant: 89).isActive = true
+        
+        configureDetailsStackStack()
+            
+        contentView.addSubview(overviewLabelTitle)
+        overviewLabelTitle.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        overviewLabelTitle.topAnchor.constraint(equalTo: movieDetailsContainer.bottomAnchor, constant: 25).isActive = true
+        overviewLabelTitle.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 9/10).isActive = true
+        
+        contentView.addSubview(overviewLabel)
+        overviewLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        overviewLabel.topAnchor.constraint(equalTo: overviewLabelTitle.bottomAnchor, constant: 25).isActive = true
+        overviewLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 9/10).isActive = true
+        overviewLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+    }
+
+    func setupScrollView(){
+        scrollView.contentInsetAdjustmentBehavior = .never
+        scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        
+        scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        scrollView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+        contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+    }
+    
+    func configureDetailsStackStack() {
+        movieDetailsContainer.addSubview(voteItem)
+        voteItem.anchor(left: movieDetailsContainer.leftAnchor, paddingLeft: 30)
+        voteItem.centerYAnchor.constraint(equalTo: movieDetailsContainer.centerYAnchor).isActive = true
+        
+        movieDetailsContainer.addSubview(trailerItem)
+        trailerItem.translatesAutoresizingMaskIntoConstraints = false
+        trailerItem.centerYAnchor.constraint(equalTo: movieDetailsContainer.centerYAnchor).isActive = true
+        trailerItem.centerXAnchor.constraint(equalTo: movieDetailsContainer.centerXAnchor).isActive = true
+
+        movieDetailsContainer.addSubview(countItem)
+        countItem.anchor(right: movieDetailsContainer.rightAnchor, paddingRight: 30)
+        countItem.centerYAnchor.constraint(equalTo: movieDetailsContainer.centerYAnchor).isActive = true
+    }
+    
+    func configureHeader() {
+        imageContainer.addSubview(titleLabel)
+        titleLabel.anchor(right: imageContainer.rightAnchor, paddingRight: 20, width: UIScreen.main.bounds.width / 2)
+        titleLabel.centerYAnchor.constraint(equalTo: imageContainer.centerYAnchor).isActive = true
+    }
+    
+    func configureSubscriptions() {
+        viewModel.movieImage.subscribe(onNext: { [weak self] image in
+            self?.imageContainer.image = image
+            self?.frontImageView.image = image
+        }).disposed(by: disposeBag)
+        
+        viewModel.movie.subscribe(onNext: {[weak self] movie in
+            self?.overviewLabel.text = movie?.overview
+            if let voteAverage = movie?.voteAverage, let voteCount = movie?.voteCount {
+                self?.voteItem.value = "\(String(voteAverage))/10"
+                self?.countItem.value = String(voteCount)
+            }
+            self?.titleLabel.text = movie?.title
+        }).disposed(by: disposeBag)
+    }
+}
+
+extension DetailsViewController {
+    func configureNavBar() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.shadowImage = UIImage()
-        
-        allDetailsStack.addArrangedSubview(voteItem)
-        allDetailsStack.addArrangedSubview(countItem)
-        allDetailsStack.addArrangedSubview(budgetItem)
-        view.addSubview(allDetailsStack)
-        allDetailsStack.anchor(top: imageContainer.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 20, paddingLeft: 20, paddingRight: 20)
-        
-        let label = UILabel()
-        label.font = UIFont(name: "BebasNeue-Regular", size: 24)
-        label.text = "Overview"
-        view.addSubview(label)
-        label.anchor(top: allDetailsStack.bottomAnchor, left: view.leftAnchor, paddingTop: 25, paddingLeft: 20)
-        
-        view.addSubview(overviewLabel)
-        overviewLabel.numberOfLines = 0
-        overviewLabel.anchor(top: label.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 25, paddingLeft: 20, paddingRight: 20)
+        view.backgroundColor = .white
     }
+}
 
-    func configureBinding() {
-        viewModel.movieImage.subscribe(onNext: {[weak self] image in
-            self?.backgroundTopImage.image = image
-        }).disposed(by: disposeBag)
-        
-        viewModel?.movie.subscribe(onNext: { [weak self] movie in
-            self?.titleLabel.text = movie?.title.uppercased()
-            self?.taglineLabel.text = movie?.tagline
-            self?.overviewLabel.text = movie?.overview
-            if let voteAverage = movie?.voteAverage, let revenue = movie?.revenue, let voteCount = movie?.voteCount {
-                self?.voteItem.value = "\(String(voteAverage))/10"
-                self?.budgetItem.value = String(revenue)
-                self?.countItem.value = String(voteCount)
-            }
-        }).disposed(by: disposeBag)
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//        viewModel.movieImage.subscribe(onNext: {[weak self] image in
+//            self?.backgroundTopImage.image = image
+//        }).disposed(by: disposeBag)
+//        viewModel?.movie.subscribe(onNext: { [weak self] movie in
+//            self?.titleLabel.text = movie?.title.uppercased()
+//            self?.overviewLabel.text = "\(movie?.overview ?? "") \(movie?.overview ?? "") \(movie?.overview ?? "") \(movie?.overview ?? "") \(movie?.overview ?? "") \(movie?.overview ?? "")"
+//        }).disposed(by: disposeBag)
+//
 //        viewModel.movieService.movieVideoData.subscribe(onNext: {[unowned self] movieVideo in
 //            guard let key = movieVideo?.results[0].key else { return }
 //            self.youtubePlayer.loadVideoID(key)
 //        }).disposed(by: disposeBag)
         
-        button.rx.tap.bind(onNext: {
-            print("Hello")
-        }).disposed(by: disposeBag)
-    }
-}
+//        button.rx.tap.bind(onNext: {
+//            print("Hello")
+//        }).disposed(by: disposeBag)
