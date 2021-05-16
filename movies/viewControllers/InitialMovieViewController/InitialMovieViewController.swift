@@ -100,7 +100,7 @@ class InitialPagerViewController: UIPageViewController {
         primaryButton.anchor(top: label.bottomAnchor, paddingTop: 20, width: UIScreen.main.bounds.width * 0.7, height: 50)
         primaryButton.centerXAnchor.constraint(equalTo: viewContainer.centerXAnchor).isActive = true
         
-        navigationItem.rightBarButtonItem = settingsBarItem
+//        navigationItem.rightBarButtonItem = settingsBarItem
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.shadowImage = UIImage()

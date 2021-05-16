@@ -21,17 +21,18 @@ class ApplicationCoordinator: BaseCoordinator {
     }
     
     override func start() {
+        self.runMainMovieFlow()
         // TODO: move to launch service
-        authService?.configureAuthListener().subscribe(onNext: {[unowned self] isAuthenticated in
-            guard let isAuth = isAuthenticated else {
-                return
-            }
-            if isAuth {
-                self.runMainMovieFlow()
-            } else {
-                self.runAuthFlow()
-            }
-        }).disposed(by: disposeBag)
+//        authService?.configureAuthListener().subscribe(onNext: {[unowned self] isAuthenticated in
+//            guard let isAuth = isAuthenticated else {
+//                return
+//            }
+//            if isAuth {
+//                
+//            } else {
+//                self.runAuthFlow()
+//            }
+//        }).disposed(by: disposeBag)
 //        switch launcher {
 //        case .auth:
 //            runAuthFlow()

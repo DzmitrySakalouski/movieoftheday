@@ -8,6 +8,11 @@
 import UIKit
 
 class DetailsStack: UIStackView {
+    var onPress: (() -> ())? {
+        didSet {
+            setupPress()
+        }
+    }
     
     lazy var imageView: UIImageView = {
         let iv = UIImageView()
@@ -58,6 +63,21 @@ class DetailsStack: UIStackView {
         addArrangedSubview(imageView)
         addArrangedSubview(labelContainer)
         imageView.anchor(width: 35, height: 35)
+    }
+    
+    func setupPress() {
+        if onPress != nil {
+            let tap = UITapGestureRecognizer(target: self, action: #selector(press))
+            self.addGestureRecognizer(tap)
+        }
+    }
+    
+    @objc func press() {
+        guard let pressHandler = onPress else {
+            return
+        }
+        
+        pressHandler()
     }
 
 }

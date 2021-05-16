@@ -91,11 +91,38 @@ class DetailsViewController: UIViewController {
         return detailsItem
     }()
     
-    var allDetailsStack: UIStackView = {
-        let detailsStack = UIStackView()
-        detailsStack.axis = .horizontal
-        detailsStack.distribution = .equalSpacing
-        return detailsStack
+    var horizontalDetailsStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.spacing = 15
+        return stack
+    }()
+    
+    var yearLabel: UILabel = {
+        let label = UILabel()
+        label.text = "2000"
+        label.textColor = Colors.textGray.getColor()
+        label.font = UIFont(name: "ProximaNova-Light", size: 15)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    var runTimeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "1h 30m"
+        label.textColor = Colors.textGray.getColor()
+        label.font = UIFont(name: "ProximaNova-Light", size: 15)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    var genresStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.spacing = 15
+        return stack
     }()
     
     override func viewDidLoad() {
@@ -106,6 +133,8 @@ class DetailsViewController: UIViewController {
         setupScrollView()
         setupViews()
         configureSubscriptions()
+        
+        viewModel.getVideoTrailerData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -133,10 +162,11 @@ class DetailsViewController: UIViewController {
         movieDetailsContainer.heightAnchor.constraint(equalToConstant: 89).isActive = true
         
         configureDetailsStackStack()
+        configureHorizontalDetailsStack()
             
         contentView.addSubview(overviewLabelTitle)
         overviewLabelTitle.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        overviewLabelTitle.topAnchor.constraint(equalTo: movieDetailsContainer.bottomAnchor, constant: 25).isActive = true
+        overviewLabelTitle.topAnchor.constraint(equalTo: genresStack.bottomAnchor, constant: 25).isActive = true
         overviewLabelTitle.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 9/10).isActive = true
         
         contentView.addSubview(overviewLabel)
@@ -187,20 +217,86 @@ class DetailsViewController: UIViewController {
         titleLabel.centerYAnchor.constraint(equalTo: imageContainer.centerYAnchor).isActive = true
     }
     
+    func configureHorizontalDetailsStack() {
+        horizontalDetailsStack.addArrangedSubview(yearLabel)
+        horizontalDetailsStack.addArrangedSubview(runTimeLabel)
+        
+        contentView.addSubview(horizontalDetailsStack)
+        horizontalDetailsStack.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 9/10).isActive = true
+        horizontalDetailsStack.topAnchor.constraint(equalTo: movieDetailsContainer.bottomAnchor, constant: 30).isActive = true
+        horizontalDetailsStack.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        
+        contentView.addSubview(genresStack)
+        genresStack.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 9/10).isActive = true
+        genresStack.topAnchor.constraint(equalTo: horizontalDetailsStack.bottomAnchor, constant: 15).isActive = true
+        genresStack.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+    }
+    
     func configureSubscriptions() {
         viewModel.movieImage.subscribe(onNext: { [weak self] image in
             self?.imageContainer.image = image
             self?.frontImageView.image = image
         }).disposed(by: disposeBag)
         
+        viewModel.movieService.movieVideoData.subscribe(onNext: {[weak self] videodData in
+            self?.trailerItem.onPress = {
+                print(videodData?.results[0])
+                guard let video = videodData?.results else { return }
+                if video.count > 0 {
+                    if video[0].site == "YouTube" {
+                        let url = URL(string: "https://www.youtube.com/watch?v=\(video[0].key)")!
+                        UIApplication.shared.open(url)
+                    }
+                }
+            }
+        }).disposed(by: disposeBag)
+        
+        
         viewModel.movie.subscribe(onNext: {[weak self] movie in
             self?.overviewLabel.text = movie?.overview
-            if let voteAverage = movie?.voteAverage, let voteCount = movie?.voteCount {
+            let dateFormatterGet = DateFormatter()
+            dateFormatterGet.dateFormat = "yyyy-mm-dd"
+            let date = dateFormatterGet.date(from: movie!.releaseDate)
+            
+            let dateFormatSet = DateFormatter()
+            dateFormatSet.dateFormat = "YYYY, MMM dd"
+            
+            let dateString = dateFormatSet.string(from: date!)
+            
+            self?.yearLabel.text = dateString
+        
+            if let voteAverage = movie?.voteAverage, let voteCount = movie?.voteCount, let runtime = movie?.runtime {
                 self?.voteItem.value = "\(String(voteAverage))/10"
                 self?.countItem.value = String(voteCount)
+                self?.runTimeLabel.text = self?.getRuntime(runtime)
             }
             self?.titleLabel.text = movie?.title
+            
+            self?.renderGenres(genres: movie?.genres)
         }).disposed(by: disposeBag)
+    }
+    
+    private func renderGenres(genres: [Genre]?) {
+        guard let genresList = genres else {
+            return
+        }
+        
+        genresList.forEach{ [weak self] genre in
+            let label = UILabel()
+            label.font = UIFont(name: "ProximaNova-Light", size: 15)
+            label.text = genre.name
+            self?.genresStack.addArrangedSubview(label)
+        }
+    }
+    
+    private func getRuntime(_ runtimeMinutes: Int?) -> String {
+        guard let runtime = runtimeMinutes else {
+            return ""
+        }
+        
+        let runtimeString = "\(runtime/60)h \(runtime%60)min"
+        
+        return runtimeString
     }
 }
 
