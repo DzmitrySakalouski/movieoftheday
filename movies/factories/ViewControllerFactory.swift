@@ -36,4 +36,8 @@ class ViewControllerFactory: ViewControllerFactoryType {
         return initialMovieVC
     }
     
+    func makeOnboardingViewController() -> OnboardingViewController {
+        let onboardingViewController = OnboardingViewController()
+        return onboardingViewController
+    }
 }

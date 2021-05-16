@@ -13,4 +13,5 @@ protocol ViewControllerFactoryType {
     func makeInitialMovieViewController() -> InitialPagerViewController
     func makeSignInViewController() -> SignInViewController
     func makeSignUpViewController() -> SignUpViewController
+    func makeOnboardingViewController() -> OnboardingViewController
 }

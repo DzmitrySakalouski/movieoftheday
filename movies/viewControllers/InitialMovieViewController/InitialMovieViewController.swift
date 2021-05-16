@@ -49,7 +49,7 @@ class InitialPagerViewController: UIPageViewController {
     var viewModel: InitialMovieViewModelType!
     var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "HJHJHJ"
+        label.text = ""
         return label
     }()
 

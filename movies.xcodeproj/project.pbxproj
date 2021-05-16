@@ -54,6 +54,8 @@
 		411B7C4D26488CF200DE2412 /* SignUpViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411B7C4C26488CF200DE2412 /* SignUpViewModelType.swift */; };
 		411B7C6B264C02FE00DE2412 /* DetailsStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411B7C6A264C02FE00DE2412 /* DetailsStack.swift */; };
 		411B7C81264C261A00DE2412 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411B7C80264C261A00DE2412 /* Colors.swift */; };
+		411B7CC6265162FA00DE2412 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411B7CC5265162FA00DE2412 /* OnboardingViewController.swift */; };
+		411B7CCA265165E300DE2412 /* OnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411B7CC9265165E300DE2412 /* OnboardingCoordinator.swift */; };
 		411E7B02263D8E2800982D1B /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411E7B01263D8E2800982D1B /* AuthCoordinator.swift */; };
 		413F3D692619EB0E00A9D09C /* DetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413F3D682619EB0D00A9D09C /* DetailsViewModel.swift */; };
 		413F3D6D2619EB2500A9D09C /* DetailsViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413F3D6C2619EB2500A9D09C /* DetailsViewModelType.swift */; };
@@ -132,6 +134,8 @@
 		411B7C6A264C02FE00DE2412 /* DetailsStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsStack.swift; sourceTree = "<group>"; };
 		411B7C80264C261A00DE2412 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		411B7C84264C29F800DE2412 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file; name = Base; path = "Base.lproj/ProximaNova-Light.ttf"; sourceTree = "<group>"; };
+		411B7CC5265162FA00DE2412 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		411B7CC9265165E300DE2412 /* OnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinator.swift; sourceTree = "<group>"; };
 		411E7B01263D8E2800982D1B /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		413F3D682619EB0D00A9D09C /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
 		413F3D6C2619EB2500A9D09C /* DetailsViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModelType.swift; sourceTree = "<group>"; };
@@ -229,6 +233,7 @@
 		4109E8FD26165E1D0036377D /* coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				411B7CC8265165CD00DE2412 /* OnboardingCoordinator */,
 				411E7B00263D8E1200982D1B /* AuthCoordinator */,
 				4109E9572616649B0036377D /* MainMovieCoordinator */,
 				4109E8FE26165E300036377D /* ApplicationCoordinator.swift */,
@@ -338,6 +343,7 @@
 		4109E950261663B90036377D /* viewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				411B7CC4265162D500DE2412 /* OnboardingViewController */,
 				41E0F22026468849006F3DE0 /* SignUpViewController */,
 				410BA331263D896E00C2E686 /* SignInViewController */,
 				4109E9C52617C4630036377D /* InitialMovieViewController */,
@@ -563,6 +569,22 @@
 				411B7C4C26488CF200DE2412 /* SignUpViewModelType.swift */,
 			);
 			path = protocols;
+			sourceTree = "<group>";
+		};
+		411B7CC4265162D500DE2412 /* OnboardingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				411B7CC5265162FA00DE2412 /* OnboardingViewController.swift */,
+			);
+			path = OnboardingViewController;
+			sourceTree = "<group>";
+		};
+		411B7CC8265165CD00DE2412 /* OnboardingCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				411B7CC9265165E300DE2412 /* OnboardingCoordinator.swift */,
+			);
+			path = OnboardingCoordinator;
 			sourceTree = "<group>";
 		};
 		411E7B00263D8E1200982D1B /* AuthCoordinator */ = {
@@ -826,6 +848,7 @@
 				4109E8FF26165E300036377D /* ApplicationCoordinator.swift in Sources */,
 				413F3D6D2619EB2500A9D09C /* DetailsViewModelType.swift in Sources */,
 				411B7C4926488CCB00DE2412 /* SignUpViewModel.swift in Sources */,
+				411B7CCA265165E300DE2412 /* OnboardingCoordinator.swift in Sources */,
 				4109E91726165F560036377D /* NavigatorType.swift in Sources */,
 				41F799AA26448C1900BA4444 /* RoundedButton.swift in Sources */,
 				4109E9A0261773DE0036377D /* DetailsViewController.swift in Sources */,
@@ -848,6 +871,7 @@
 				4109E9A4261777710036377D /* Video.swift in Sources */,
 				4109E9792617425F0036377D /* Endpoint.swift in Sources */,
 				4109E90726165E9A0036377D /* CoordinatorType.swift in Sources */,
+				411B7CC6265162FA00DE2412 /* OnboardingViewController.swift in Sources */,
 				4109E995261763E60036377D /* MainMovieViewModelType.swift in Sources */,
 				4109E954261663FD0036377D /* MainMovieViewController.swift in Sources */,
 				4109E92126165FBC0036377D /* APIClientType.swift in Sources */,

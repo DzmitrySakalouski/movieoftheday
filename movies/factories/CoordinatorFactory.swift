@@ -17,4 +17,9 @@ class CoordinatorFactory: CoordinatorFactoryType {
         let vcFactory = ViewControllerFactory()
         return AuthCoordinator(factory: vcFactory, navigator: navigator)
     }
+    
+    func makeOnboardingCoordinator(navigator: NavigatorType) -> OnboardingCoordinator {
+        let vcFactory = ViewControllerFactory()
+        return OnboardingCoordinator(factory: vcFactory, navigator: navigator)
+    }
 }

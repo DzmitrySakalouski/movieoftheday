@@ -10,4 +10,5 @@ import Foundation
 protocol CoordinatorFactoryType {
     func makeMainMovieCoordinator(navigator: NavigatorType) -> MainMovieCoordinator
     func makeAuthCoordinator(navigator: NavigatorType) -> AuthCoordinator
+    func makeOnboardingCoordinator(navigator: NavigatorType) -> OnboardingCoordinator
 }

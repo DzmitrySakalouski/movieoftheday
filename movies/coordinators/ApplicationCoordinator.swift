@@ -21,7 +21,10 @@ class ApplicationCoordinator: BaseCoordinator {
     }
     
     override func start() {
-        self.runMainMovieFlow()
+        runOnboardingFlow()
+        // self.runMainMovieFlow()
+        
+        
         // TODO: move to launch service
 //        authService?.configureAuthListener().subscribe(onNext: {[unowned self] isAuthenticated in
 //            guard let isAuth = isAuthenticated else {
@@ -46,6 +49,16 @@ class ApplicationCoordinator: BaseCoordinator {
     func runMainMovieFlow () {
         let coordinator = coordinatorFacrory.makeMainMovieCoordinator(navigator: navigator)
         addDependency(coordinator: coordinator)
+        coordinator.start()
+    }
+    
+    func runOnboardingFlow() {
+        let coordinator = coordinatorFacrory.makeOnboardingCoordinator(navigator: navigator)
+        addDependency(coordinator: coordinator)
+        coordinator.finishFlow = {
+            self.removeDependency(coordinator: coordinator)
+            self.runMainMovieFlow()
+        }
         coordinator.start()
     }
     
