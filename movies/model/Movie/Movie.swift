@@ -68,6 +68,7 @@ struct MovieDetails: Codable {
     var title: String
     var voteAverage: Double
     var voteCount: Int
+    var productionCountries: [ProductionCountry]
     
     enum CodingKeys: String, CodingKey {
         case posterPath = "poster_path"
@@ -86,5 +87,11 @@ struct MovieDetails: Codable {
         case title = "title"
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
+        case productionCountries = "production_countries"
     }
+}
+
+struct ProductionCountry: Codable {
+    var iso_3166_1: String
+    var name: String
 }

@@ -16,5 +16,6 @@ protocol InitialMovieViewModelType {
     var isLoading: BehaviorRelay<Bool> { get }
     func fetchMovie(id: Int) -> ()
     func switchIndex() -> ()
-    func didSettingsPress() -> ()
+    func didNoAdsPress() -> ()
+    func didRefreshPress() -> ()
 }

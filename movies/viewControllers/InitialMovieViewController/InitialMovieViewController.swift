@@ -14,13 +14,23 @@ class InitialPagerViewController: UIPageViewController {
     lazy var label: UILabel = {
         let l = UILabel()
         l.textColor = .white
+        l.numberOfLines = 0
         l.font = UIFont(name: "BebasNeue-Regular", size: 32)
         l.text = "Moonlight"
         return l
     }()
     
-    lazy var settingsBarItem: UIBarButtonItem = {
-        let settingsItem = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(onSettingsPress))
+    lazy var noAdsBarItem: UIBarButtonItem = {
+        let settingsItem = UIBarButtonItem(image: nil, style: .plain, target: self, action: #selector(onNoAdsPress))
+        settingsItem.title = "Block Ads"
+        settingsItem.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "BebasNeue-Regular", size: 14.0)!], for: .normal)
+        settingsItem.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "BebasNeue-Regular", size: 14.0)!], for: .highlighted)
+        settingsItem.tintColor = .white
+        return settingsItem
+    }()
+    
+    lazy var refreshBarItem: UIBarButtonItem = {
+        let settingsItem = UIBarButtonItem(image: UIImage(systemName: "arrow.clockwise"), style: .plain, target: self, action: #selector(onRefreshPress))
         settingsItem.tintColor = .white
         return settingsItem
     }()
@@ -92,13 +102,14 @@ class InitialPagerViewController: UIPageViewController {
         viewContainer.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
 
         viewContainer.addSubview(frontImage)
-        frontImage.anchor(top: viewContainer.topAnchor, width: 220, height: 340)
+        frontImage.anchor(top: viewContainer.topAnchor, width: 200, height: 310)
         
         self.xPicConstraint = frontImage.centerXAnchor.constraint(equalTo: viewContainer.centerXAnchor)
         xPicConstraint?.isActive = true
+        
         viewContainer.addSubview(label)
-        label.anchor(top: frontImage.bottomAnchor, paddingTop: 20)
-        label.centerXAnchor.constraint(equalTo: viewContainer.centerXAnchor).isActive = true
+        label.textAlignment = .center
+        label.anchor(top: frontImage.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 20)
 
         viewContainer.addSubview(primaryButton)
         primaryButton.anchor(top: label.bottomAnchor, paddingTop: 20, width: UIScreen.main.bounds.width * 0.7, height: 50)
@@ -108,10 +119,14 @@ class InitialPagerViewController: UIPageViewController {
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.shadowImage = UIImage()
 
+        navigationItem.leftBarButtonItem = noAdsBarItem
+        navigationItem.rightBarButtonItem = refreshBarItem
     }
     
     func showLoader() {
         primaryButton.isHidden = true
+        label.isHidden = true
+        frontImage.isHidden = true
         activityView = UIActivityIndicatorView(style: .large)
         activityView?.color = .white
         activityView?.tintColor = .white
@@ -124,7 +139,8 @@ class InitialPagerViewController: UIPageViewController {
     func hideLoader() {
         if (activityView != nil){
             primaryButton.isHidden = false
-
+            label.isHidden = false
+            frontImage.isHidden = false
             activityView?.stopAnimating()
         }
     }
@@ -144,13 +160,13 @@ class InitialPagerViewController: UIPageViewController {
         }).disposed(by: disposeBag)
         
         viewModel?.movie.subscribe(onNext: { [weak self] movie in
-            if movie != nil {
-                self?.viewModel.isLoading.accept(false)
-            }
             self?.label.text = movie?.title
         }).disposed(by: disposeBag)
         
         viewModel?.movieImage.subscribe(onNext: { [weak self] image in
+            if image != nil {
+                self?.viewModel.isLoading.accept(false)
+            }
             self?.frontImage.image = image
         }).disposed(by: disposeBag)
         
@@ -182,8 +198,13 @@ class InitialPagerViewController: UIPageViewController {
         viewModel?.switchIndex()
     }
     
-    @objc func onSettingsPress() {
-        viewModel.didSettingsPress()
+    @objc func onNoAdsPress() {
+        viewModel?.didNoAdsPress()
+    }
+    
+    @objc func onRefreshPress() {
+        viewModel?.isLoading.accept(true)
+        viewModel?.didRefreshPress()
     }
 }
 

@@ -84,12 +84,6 @@ class DetailsViewController: UIViewController {
         detailsItem.image = #imageLiteral(resourceName: "youtube")
         return detailsItem
     }()
-        
-    var countItem: DetailsStack = {
-        let detailsItem = DetailsStack()
-        detailsItem.image = UIImage(systemName: "plus.bubble")?.withTintColor(UIColor(red: 81/255, green: 207/255, blue: 102/255, alpha: 1), renderingMode: .alwaysOriginal)
-        return detailsItem
-    }()
     
     var horizontalDetailsStack: UIStackView = {
         let stack = UIStackView()
@@ -125,6 +119,20 @@ class DetailsViewController: UIViewController {
         return stack
     }()
     
+    var countryLabel: UILabel = {
+        let l = UILabel()
+        l.numberOfLines = 0
+        l.font = UIFont(name: "ProximaNova-Light", size: 15)
+        return l
+    }()
+    
+    var genresLabel: UILabel = {
+        let l = UILabel()
+        l.numberOfLines = 0
+        l.font = UIFont(name: "ProximaNova-Light", size: 15)
+        return l
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavBar()
@@ -143,6 +151,7 @@ class DetailsViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [unowned self] in
             self.imageContainer.addSubview(self.frontImageView)
             self.frontImageView.anchor(top: self.imageContainer.topAnchor, left: self.imageContainer.leftAnchor, paddingTop: 60, paddingLeft: 20, width: 100, height: 160)
+            print(viewModel.movie.value?.productionCountries)
         }
     }
     
@@ -156,9 +165,9 @@ class DetailsViewController: UIViewController {
         configureHeader()
         
         contentView.addSubview(movieDetailsContainer)
-        movieDetailsContainer.anchor(top: imageContainer.bottomAnchor, paddingTop: -15)
-        movieDetailsContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 25).isActive = true
+        movieDetailsContainer.anchor(top: imageContainer.bottomAnchor, paddingTop: -39)
         movieDetailsContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        movieDetailsContainer.widthAnchor.constraint(equalToConstant:  UIScreen.main.bounds.width / 2).isActive = true
         movieDetailsContainer.heightAnchor.constraint(equalToConstant: 78).isActive = true
         
         configureDetailsStackStack()
@@ -199,6 +208,9 @@ class DetailsViewController: UIViewController {
     }
     
     func configureDetailsStackStack() {
+        contentView.addSubview(countryLabel)
+        countryLabel.anchor(top: imageContainer.bottomAnchor, left: contentView.leftAnchor, right: movieDetailsContainer.leftAnchor, paddingTop: 20, paddingLeft: 20)
+        
         movieDetailsContainer.addSubview(voteItem)
         voteItem.anchor(left: movieDetailsContainer.leftAnchor, paddingLeft: 30)
         voteItem.centerYAnchor.constraint(equalTo: movieDetailsContainer.centerYAnchor).isActive = true
@@ -206,11 +218,7 @@ class DetailsViewController: UIViewController {
         movieDetailsContainer.addSubview(trailerItem)
         trailerItem.translatesAutoresizingMaskIntoConstraints = false
         trailerItem.centerYAnchor.constraint(equalTo: movieDetailsContainer.centerYAnchor).isActive = true
-        trailerItem.centerXAnchor.constraint(equalTo: movieDetailsContainer.centerXAnchor).isActive = true
-
-        movieDetailsContainer.addSubview(countItem)
-        countItem.anchor(right: movieDetailsContainer.rightAnchor, paddingRight: 30)
-        countItem.centerYAnchor.constraint(equalTo: movieDetailsContainer.centerYAnchor).isActive = true
+        trailerItem.anchor(right: movieDetailsContainer.rightAnchor, paddingRight: 30)
     }
     
     func configureHeader() {
@@ -225,13 +233,15 @@ class DetailsViewController: UIViewController {
         
         contentView.addSubview(horizontalDetailsStack)
         horizontalDetailsStack.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 9/10).isActive = true
-        horizontalDetailsStack.topAnchor.constraint(equalTo: movieDetailsContainer.bottomAnchor, constant: 30).isActive = true
+        horizontalDetailsStack.topAnchor.constraint(equalTo: movieDetailsContainer.bottomAnchor, constant: 20).isActive = true
         horizontalDetailsStack.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         
         contentView.addSubview(genresStack)
         genresStack.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 9/10).isActive = true
         genresStack.topAnchor.constraint(equalTo: horizontalDetailsStack.bottomAnchor, constant: 15).isActive = true
         genresStack.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        
+        genresStack.addArrangedSubview(genresLabel)
     }
     
     func configureSubscriptions() {
@@ -242,7 +252,6 @@ class DetailsViewController: UIViewController {
         
         viewModel.movieService.movieVideoData.subscribe(onNext: {[weak self] videodData in
             self?.trailerItem.onPress = {
-                print(videodData?.results[0])
                 guard let video = videodData?.results else { return }
                 if video.count > 0 {
                     if video[0].site == "YouTube" {
@@ -267,15 +276,29 @@ class DetailsViewController: UIViewController {
             
             self?.yearLabel.text = dateString
         
-            if let voteAverage = movie?.voteAverage, let voteCount = movie?.voteCount, let runtime = movie?.runtime {
+            if let voteAverage = movie?.voteAverage, let runtime = movie?.runtime {
                 self?.voteItem.value = "\(String(voteAverage))/10"
-                self?.countItem.value = String(voteCount)
                 self?.runTimeLabel.text = self?.getRuntime(runtime)
             }
             self?.titleLabel.text = movie?.title
             
             self?.renderGenres(genres: movie?.genres)
+            self?.renderCountries(countries: movie?.productionCountries)
         }).disposed(by: disposeBag)
+    }
+    
+    private func renderCountries(countries: [ProductionCountry]?) {
+        guard let countriesArray = countries else {
+            return
+        }
+        
+        var countriesString = ""
+        
+        countriesArray.forEach{ country in
+            countriesString = countriesString + "\(country.iso_3166_1) "
+        }
+        
+        countryLabel.text = countriesString
     }
     
     private func renderGenres(genres: [Genre]?) {
@@ -283,17 +306,13 @@ class DetailsViewController: UIViewController {
             return
         }
         
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.font = UIFont(name: "ProximaNova-Light", size: 15)
         var genresString = ""
         
         genresList.forEach{ genre in
             genresString = genresString + "\(genre.name) "
         }
         
-        label.text = genresString
-        genresStack.addArrangedSubview(label)
+        genresLabel.text = genresString
     }
     
     private func getRuntime(_ runtimeMinutes: Int?) -> String {

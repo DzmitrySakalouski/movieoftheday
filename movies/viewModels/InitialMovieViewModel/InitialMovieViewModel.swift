@@ -9,7 +9,7 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-class InitialMovieViewModel: InitialMovieViewModelType {
+class InitialMovieViewModel: InitialMovieViewModelType {    
     var currentIndex: BehaviorRelay<Int> = BehaviorRelay<Int>(value: 0)
     var movieService: MovieServiceType!
     var movie: BehaviorRelay<MovieDetails?>!
@@ -35,9 +35,11 @@ class InitialMovieViewModel: InitialMovieViewModelType {
         self.currentIndex.accept(1)
     }
     
-    func didSettingsPress() -> () {
-        authService.signOut().subscribe(onError: {error in
-            print(error)
-        }).disposed(by: disposeBag)
+    func didNoAdsPress() -> () {
+        print("No ads")
+    }
+    func didRefreshPress() -> () {
+        print("Refresh")
+        movieService.getPrimaryMovie()
     }
 }
